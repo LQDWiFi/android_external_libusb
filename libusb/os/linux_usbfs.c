@@ -195,8 +195,9 @@ static int _get_usbfs_fd(struct libusb_device *dev, mode_t mode, int silent)
 			usbfs_path, dev->bus_number, dev->device_address);
 
 	fd = open(path, mode);
-	if (fd != -1)
+	if (fd != -1) {
 		return fd; /* Success */
+        }
 
 	if (errno == ENOENT) {
 		if (!silent) 
@@ -211,8 +212,8 @@ static int _get_usbfs_fd(struct libusb_device *dev, mode_t mode, int silent)
 	}
 	
 	if (!silent) {
-		usbi_err(ctx, "libusb couldn't open USB device %s: %s",
-			 path, strerror(errno));
+		fprintf(stdout, "libusb couldn't open USB device %s: %s", path, strerror(errno));
+		usbi_err(ctx, "libusb couldn't open USB device %s: %s", path, strerror(errno));
 		if (errno == EACCES && mode == O_RDWR)
 			usbi_err(ctx, "libusb requires write access to USB "
 				      "device nodes.");
