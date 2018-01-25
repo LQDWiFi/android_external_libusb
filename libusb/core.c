@@ -1251,9 +1251,8 @@ int API_EXPORTED libusb_open(libusb_device *dev,
 	}
 
 	_dev_handle = malloc(sizeof(*_dev_handle) + priv_size);
-	if (!_dev_handle) {
+	if (!_dev_handle)
 		return LIBUSB_ERROR_NO_MEM;
-        }
 
 	r = usbi_mutex_init(&_dev_handle->lock);
 	if (r) {
@@ -1269,7 +1268,6 @@ int API_EXPORTED libusb_open(libusb_device *dev,
 	r = usbi_backend->open(_dev_handle);
 	if (r < 0) {
 		usbi_dbg("open %d.%d returns %d", dev->bus_number, dev->device_address, r);
-                //fprintf(stdout, "libusb_open %d.%d returns %d\n", dev->bus_number, dev->device_address, r);
 		libusb_unref_device(dev);
 		usbi_mutex_destroy(&_dev_handle->lock);
 		free(_dev_handle);
