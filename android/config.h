@@ -35,10 +35,6 @@
 /* Linux backend */
 #define OS_LINUX 1
 
-#ifndef __ANDROID__
-#define __ANDROID__ 1
-#endif
-
 /* Enable output to system log */
 #define USE_SYSTEM_LOGGING_FACILITY 1
 
